@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">G-Movie Catalogue</string>
+    <string name="masukkan_nama_film">Film Name</string>
+    <string name="id_film"></string>
+    <string name="cari">Find</string>
+    <string name="nama_film">Batman</string>
+    <string name="tanggal">Release</string>
+    <string name="deskripsi">Synopsis</string>
+    <string name="bagikan">Share</string>
+    <string name="favorit">Favourite</string>
+    <string name="nowplay">Now Playing</string>
+    <string name="home">Home</string>
+    <string name="upcome">Upcoming</string>
+    <string name="nama_pengguna">Gregorio Imanuel</string>
+    <string name="navigation_open">Open</string>
+    <string name="navigation_close">Close</string>
+    <string name="action_setting">Language</string>
+    <string name="btn_share">Share</string>
+    <string name="btn_detail">Detail</string>
+    <string name="listView">List View</string>
+    <string name="cardView">Card View</string>
+    <string name="Subtitle">Subtitle</string>
+    <string name="Popularity">Popularity</string>
+    <string name="Voting">Voting</string>
+    <string name="sinopsidetail">Synopsis</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -86,17 +86,16 @@
                     android:id="@+id/tv_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@color/colorSub"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_sub"
                     android:text="@string/sinopsidetail"
                     android:textColor="@android:color/white"
-                    android:layout_gravity="center"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="10dp"
-                    android:layout_height="match_parent"
-                   ></LinearLayout>
+                    android:layout_height="match_parent"></LinearLayout>
 
 
                 <TextView
@@ -104,8 +103,9 @@
                     android:layout_width="249dp"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_desc"
+                    android:textColor="@color/colorAccent"
                     android:textSize="16dp"
-                    android:textColor="@color/colorAccent"/>
+                    />
 
             </TableRow>
 
@@ -113,13 +113,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@color/colorSubb">
+                android:background="@drawable/rounded_corner">
 
                 <TextView
                     android:id="@+id/tv_sub"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorSub"
+                    android:background="@drawable/rounded_sub"
+                    android:layout_gravity="center"
                     android:text="@string/Subtitle"
                     android:textColor="@android:color/white"
                     android:textSize="14dp"
@@ -134,21 +135,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_sub"
-                    android:textSize="16dp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16dp" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@color/colorSubb">
+                android:background="@drawable/rounded_corner">
 
                 <TextView
                     android:id="@+id/tv_pop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorSub"
+                    android:background="@drawable/rounded_sub"
                     android:text="@string/Popularity"
                     android:textColor="@android:color/white"
                     android:textSize="14dp"
@@ -163,21 +164,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_pop"
-                    android:textSize="16dp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16dp" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@color/colorSubb">
+                android:background="@drawable/rounded_corner">
 
                 <TextView
                     android:id="@+id/tv_vot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorSub"
+                    android:background="@drawable/rounded_sub"
                     android:text="@string/Voting"
                     android:textColor="@android:color/white"
                     android:textSize="14dp"
@@ -192,8 +193,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_vot"
-                    android:textSize="16dp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16dp" />
             </TableRow>
 
         </TableLayout>

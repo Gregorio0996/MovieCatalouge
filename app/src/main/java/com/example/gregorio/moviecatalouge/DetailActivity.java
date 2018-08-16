@@ -61,13 +61,14 @@ public class DetailActivity extends AppCompatActivity {
         String judul = getIntent().getStringExtra(EXTRA_JUDUL);
         tvJudul.setText(judul);
         tvJudul.setTypeface(typeface);
-        Typeface typefacee = Typeface.createFromAsset(getAssets(), "fonts/amita-regular.ttf");
+        Typeface typefacee = Typeface.createFromAsset(getAssets(), "fonts/Ubuntu-R.ttf");
         String tanggalrilis = getIntent().getStringExtra(EXTRA_TANGGAL);
         tvDate.setText(tanggalrilis);
         tvDate.setTypeface(typefacee);
         String deskripsi = getIntent().getStringExtra(EXTRA_DETAIL);
         tvDescription.setText(deskripsi);
         tvDescription.setTypeface(typefacee);
+
         String subtitle = getIntent().getStringExtra(EXTRA_BAHASA);
         tvSubtitle.setText(subtitle);
         tvSubtitle.setTypeface(typefacee);

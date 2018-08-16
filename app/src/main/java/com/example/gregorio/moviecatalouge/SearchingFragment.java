@@ -7,15 +7,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
@@ -24,9 +30,11 @@ import java.util.ArrayList;
 public class SearchingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<FilmItems>> {
 
     FilmAdapter adapter;
-    Button search;
+    ImageButton search;
     ListView listView;
+    CardView isi;
     EditText edtSearch;
+
 
     static final String EXTRA_FILM = "EKSTRA FILM";
 
@@ -63,8 +71,9 @@ public class SearchingFragment extends Fragment implements LoaderManager.LoaderC
             }
         });
 
-        search = (Button) view.findViewById(R.id.btn_search);
+        search = (ImageButton) view.findViewById(R.id.btn_search);
         search.setOnClickListener(searchListener);
+        isi = (CardView)view.findViewById(R.id.isi_card);
         edtSearch = (EditText)view.findViewById(R.id.edt_cari);
         String cari = edtSearch.getText().toString();
         Bundle bundle = new Bundle();
@@ -78,12 +87,13 @@ public class SearchingFragment extends Fragment implements LoaderManager.LoaderC
         public void onClick(View view) {
             String judulFilm = edtSearch.getText().toString();
             if (TextUtils.isEmpty(judulFilm)) return;
-
             Bundle bundle = new Bundle();
             bundle.putString(EXTRA_FILM, judulFilm);
             getLoaderManager().restartLoader(0, bundle, SearchingFragment.this);
         }
     };
+
+
 
     @Override
     public Loader<ArrayList<FilmItems>> onCreateLoader(int i, Bundle bundle) {
@@ -103,4 +113,6 @@ public class SearchingFragment extends Fragment implements LoaderManager.LoaderC
     public void onLoaderReset(Loader<ArrayList<FilmItems>> loader) {
         adapter.setData(null);
     }
+
+
 }

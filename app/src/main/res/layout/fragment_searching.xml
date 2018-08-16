@@ -15,30 +15,44 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context=".MainActivity">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingTop="@dimen/activity_vertical_margin"
-            android:weightSum="1">
-
+            android:weightSum="1"
+            android:id="@+id/isi_card">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textmasuk">
             <EditText
                 android:id="@+id/edt_cari"
-                android:layout_width="130dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:ems="10"
+                android:layout_weight="1"
+                android:ems="13"
                 android:hint="@string/masukkan_nama_film"
                 android:inputType="text" />
 
-            <Button
-                android:id="@+id/btn_search"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cari" />
         </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                >
+
+                <ImageButton
+                    android:id="@+id/btn_search"
+                    android:src="@drawable/ic_search_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cari"
+                    android:layout_marginStart="280dp"/>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
 
         <ListView
             android:layout_width="match_parent"

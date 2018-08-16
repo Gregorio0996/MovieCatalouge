@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     tools:context="com.example.gregorio.moviecatalouge.DetailActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,10 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:paddingTop="@dimen/activity_horizontal_margin"
-            android:paddingLeft="110dp"
+            android:background="@color/colorAppLayout"
             android:paddingBottom="@dimen/nav_header_vertical_space"
-            android:background="@color/colorAppLayout">
+            android:paddingLeft="110dp"
+            android:paddingTop="@dimen/activity_horizontal_margin">
 
             <ImageView
                 android:id="@+id/img_poster"
@@ -25,16 +26,22 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                />
+                android:scaleType="fitXY" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:textOff=""
+                android:textOn="" />
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            >
+            android:paddingBottom="20dp">
 
             <TextView
                 android:id="@+id/tv_judul"
@@ -65,9 +72,10 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/detail_margin"
-            android:layout_marginRight="@dimen/detail_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin">
+            android:layout_marginRight="@dimen/detail_margin">
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,15 +86,15 @@
                     android:id="@+id/tv_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sinopsidetail"
-                    android:textSize="16dp"
-                    android:textColor="@android:color/white"
                     android:background="@color/colorSub"
+                    android:text="@string/sinopsidetail"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
+
                 <LinearLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="10dp">
-                </LinearLayout>
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></LinearLayout>
 
 
                 <TextView
@@ -95,8 +103,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_desc"
                     android:textSize="16dp"
-                    />
+                    android:textColor="@color/colorAccent"/>
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,23 +116,25 @@
                     android:id="@+id/tv_sub"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
+                    android:background="@color/colorSub"
                     android:text="@string/Subtitle"
                     android:textColor="@android:color/white"
-                    android:background="@color/colorSub"
                     android:textSize="14dp"
                     android:textStyle="bold" />
+
                 <LinearLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="10dp">
-                </LinearLayout>
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></LinearLayout>
+
                 <TextView
+                    android:id="@+id/tv_subtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_subtitle"
                     android:layout_toRightOf="@id/tv_sub"
                     android:textSize="16dp"
-                    />
+                    android:textColor="@color/colorAccent"/>
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -134,22 +145,23 @@
                     android:id="@+id/tv_pop"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
+                    android:background="@color/colorSub"
                     android:text="@string/Popularity"
                     android:textColor="@android:color/white"
-                    android:background="@color/colorSub"
                     android:textSize="14dp"
                     android:textStyle="bold" />
+
                 <LinearLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="10dp">
-                </LinearLayout>
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></LinearLayout>
+
                 <TextView
+                    android:id="@+id/tv_popularity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_popularity"
                     android:layout_toRightOf="@id/tv_pop"
                     android:textSize="16dp"
-                    />
+                    android:textColor="@color/colorAccent"/>
             </TableRow>
 
             <TableRow
@@ -162,22 +174,23 @@
                     android:id="@+id/tv_vot"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
+                    android:background="@color/colorSub"
                     android:text="@string/Voting"
                     android:textColor="@android:color/white"
-                    android:background="@color/colorSub"
                     android:textSize="14dp"
                     android:textStyle="bold" />
+
                 <LinearLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="10dp">
-                </LinearLayout>
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></LinearLayout>
+
                 <TextView
+                    android:id="@+id/tv_voting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_voting"
                     android:layout_toRightOf="@id/tv_vot"
                     android:textSize="16dp"
-                    />
+                    android:textColor="@color/colorAccent"/>
             </TableRow>
 
         </TableLayout>

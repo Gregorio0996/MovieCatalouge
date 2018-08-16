@@ -5,10 +5,13 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 
@@ -42,6 +45,8 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvPopularity;
     @BindView(R.id.tv_voting)
     TextView tvVoting;
+    @BindView(R.id.toggleButton)
+    ToggleButton toggleButton;
 
 
     private Context context;
@@ -72,6 +77,19 @@ public class DetailActivity extends AppCompatActivity {
         String voting = getIntent().getStringExtra(EXTRA_VOTEAVG);
         tvVoting.setText(voting);
         tvVoting.setTypeface(typefacee);
+        toggleButton.setChecked(false);
+        toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_white));
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b)
+                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_red));
+                else
+                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_white));
+            }
+        });
+
+
         String poster = getIntent().getStringExtra(EXTRA_POSTER);
         Glide
                 .with(DetailActivity.this)
@@ -87,7 +105,7 @@ public class DetailActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 

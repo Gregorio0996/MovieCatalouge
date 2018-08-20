@@ -110,13 +110,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String home = getString(R.string.home);
             String title = "";
             String search = getString(R.string.cari);
+            String favourite = getString(R.string.favorit);
             if (id == R.id.nav_home) {
                 title = home;
                 fragment = new HomeFragment();
-            } else if (id == R.id.nav_search) { //cek idnya
+            } else if (id == R.id.nav_search) {
                 title = search;
                 fragment = new SearchingFragment();
                 fragment.setArguments(bundle);
+            } else if(id == R.id.nav_favorite ){
+                title = favourite;
+
             }
 
             if (fragment != null) {

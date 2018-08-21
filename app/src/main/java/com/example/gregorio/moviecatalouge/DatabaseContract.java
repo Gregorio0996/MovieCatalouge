@@ -19,6 +19,7 @@ public class DatabaseContract {
         public static String SUBTITLE = "subtitle";
         public static String POPULARITY = "popularity";
         public static String VOTING = "voting";
+        public static String POSTER = "poster";
     }
 
     public static String getColumnString(Cursor cursor, String columnName) {
@@ -31,6 +32,10 @@ public class DatabaseContract {
 
     public static long getColumnLong(Cursor cursor, String columnName) {
         return cursor.getLong(cursor.getColumnIndex(columnName));
+    }
+
+    public static double getColumnDouble (Cursor cursor, String columnName){
+        return cursor.getDouble(cursor.getColumnIndex(columnName));
     }
 
 }

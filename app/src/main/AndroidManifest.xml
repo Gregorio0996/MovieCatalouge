@@ -3,7 +3,8 @@
     package="com.example.gregorio.moviecatalouge">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <permission android:name="com.example.gregorio.moviecatalouge.READ_DATABASE" android:protectionLevel="normal"></permission>
+    <permission android:name="com.example.gregorio.moviecatalouge.WRITE_DATABASE" android:protectionLevel="normal"></permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_movie_round"
@@ -24,6 +25,13 @@
         <activity android:name=".DetailActivity"
             android:parentActivityName=".MainActivity"
             ></activity>
+        <provider
+            android:authorities="com.example.gregorio.moviecatalouge"
+            android:name=".FavouriteProvider"
+            android:exported="true"
+            android:readPermission="com.example.gregorio.moviecatalouge.READ_DATABASE"
+            android:writePermission="com.example.gregorio.moviecatalouge.WRITE_DATABASE"
+            />
 
     </application>
 

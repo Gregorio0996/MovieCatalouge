@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CREATE_TABLE_MOVIE = "create table " + DatabaseContract.TABLE_NAME + " (" +
                 DatabaseContract.FavouriteColumns._ID + " integer primary key autoincrement, " +
+                DatabaseContract.FavouriteColumns.POSTER + " text not null, "+
                 DatabaseContract.FavouriteColumns.TITLE + " text not null, " +
                 DatabaseContract.FavouriteColumns.DATE + " text not null, " +
                 DatabaseContract.FavouriteColumns.DESCRIPTION + " text not null, "+

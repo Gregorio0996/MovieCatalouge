@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private FavouriteListAdapter favouriteListAdapter;
     ListView lvFav;
     private final int LOAD_FAV_ID = 101;
-    String[] movies;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +47,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-    /*if (data.moveToFirst()){
-        movies = new String[data.getCount()];
-        for (int i=0; i < data.getCount(); i++){
-            data.moveToPosition(i);
-            movies[i] = data.getString(3);
-        };
-        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(movies));
-        lvFav.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, arrayList));*/
         favouriteListAdapter.swapCursor(data);
     }
 

@@ -69,17 +69,7 @@ public class DetailActivity extends AppCompatActivity {
         favouriteHelper = new FavouriteHelper(this);
         favouriteHelper.open();
 
-
         final Uri uri = getIntent().getData();
-
-        /*final FilmModel film = getIntent().getParcelableExtra(MOVIE_ITEM);
-        tvJudul.setText(film.getJudulFilm());
-        tvDate.setText(film.getTanggal());
-        tvDescription.setText(film.getDeskripsi());
-        tvVoting.setText(film.getVote());
-        tvSubtitle.setText(film.getSubtitle());
-        tvPopularity.setText(film.getPopular());
-        Glide.with(this).load("http://image.tmdb.org/t/p/w185/" + film.getPoster()).into(imgPoster);*/
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/MontserratAlternates-Bold.otf");
         final String judul = getIntent().getStringExtra(EXTRA_JUDUL);
@@ -114,13 +104,6 @@ public class DetailActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_red));
-                    /*String title = filmItems.getJudulFilm();
-                    String date = filmItems.getTanggal();
-                    String desc = filmItems.getDeskripsi();
-                    String sub = filmItems.getSubtitle();
-                    String popular = filmItems.getPopular();
-                    String vote = filmItems.getVote();
-                    String poster = filmItems.getPoster();*/
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(DatabaseContract.FavouriteColumns.TITLE, judul);
                     contentValues.put(DatabaseContract.FavouriteColumns.DATE, tanggalrilis);

@@ -48,10 +48,10 @@ public class FavouriteListAdapter extends CursorAdapter {
             ImageView imgPoster = (ImageView) view.findViewById(R.id.img_poster);
 
             tvJudul.setText(getColumnString(cursor, TITLE));
-            //tvDate.setText(getColumnString(cursor, DATE));
+
             final String tanggalrilis = getColumnString(cursor, DATE);
             tvDesc.setText(getColumnString(cursor, DESCRIPTION));
-            Glide.with(context).load("http://image.tmdb.org/t/p/w185/" + getColumnString(cursor, POSTER)).into(imgPoster);
+            Glide.with(context).load("http://image.tmdb.org/t/p/w185/"+getColumnString(cursor, POSTER)).into(imgPoster);
 
             SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
             try

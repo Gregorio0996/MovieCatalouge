@@ -19,7 +19,7 @@ import java.util.Arrays;
 import static com.example.gregorio.favouritelist.DatabaseContract.CONTENT_URI;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-
+    private FavouriteListAdapter favouriteListAdapter;
     ListView lvFav;
     private final int LOAD_FAV_ID = 101;
     String[] movies;
@@ -28,9 +28,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        favouriteListAdapter = new FavouriteListAdapter(this, null, true);
         lvFav = (ListView)findViewById(R.id.lv_fav);
+        lvFav.setAdapter(favouriteListAdapter);
         getSupportLoaderManager().initLoader(LOAD_FAV_ID, null, this);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        getSupportLoaderManager().restartLoader(LOAD_FAV_ID, null, this);
     }
 
     @Override
@@ -40,19 +47,26 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-    if (data.moveToFirst()){
+    /*if (data.moveToFirst()){
         movies = new String[data.getCount()];
         for (int i=0; i < data.getCount(); i++){
             data.moveToPosition(i);
             movies[i] = data.getString(3);
         };
         ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(movies));
-        lvFav.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, arrayList));
+        lvFav.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, arrayList));*/
+        favouriteListAdapter.swapCursor(data);
     }
-    }
+
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+    favouriteListAdapter.swapCursor(null);
+    }
 
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        getSupportLoaderManager().destroyLoader(LOAD_FAV_ID);
     }
 }

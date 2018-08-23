@@ -34,9 +34,8 @@ public class FavouriteProvider extends ContentProvider {
         return true;
     }
 
-    @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, String[] strings, String s, String[] strings1, String s1) {
+    public Cursor query(Uri uri, String[] strings, String s, String[] strings1, String s1) {
         Cursor cursor;
         switch (sUriMatcher.match(uri)) {
             case FAVOURITE:
@@ -55,15 +54,13 @@ public class FavouriteProvider extends ContentProvider {
         return cursor;
     }
 
-    @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
         return null;
     }
 
-    @Nullable
     @Override
-    public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
+    public Uri insert(@NonNull Uri uri, ContentValues contentValues) {
         long added;
         switch (sUriMatcher.match(uri)) {
             case FAVOURITE:
@@ -82,7 +79,7 @@ public class FavouriteProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
+    public int delete(@NonNull Uri uri, String s, String[] strings) {
         int deleted;
         switch (sUriMatcher.match(uri)) {
             case FAVOURITE_ID:
@@ -101,7 +98,7 @@ public class FavouriteProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
+    public int update(@NonNull Uri uri, ContentValues contentValues, String s, String[] strings) {
         int updated;
         switch (sUriMatcher.match(uri)) {
             case FAVOURITE_ID:

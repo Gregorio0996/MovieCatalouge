@@ -56,6 +56,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private FavouriteHelper favouriteHelper;
     private Context context;
+    private FilmItems filmItems;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -64,6 +65,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
+
+        favouriteHelper = new FavouriteHelper(this);
+        favouriteHelper.open();
 
 
         final Uri uri = getIntent().getData();
@@ -79,19 +83,24 @@ public class DetailActivity extends AppCompatActivity {
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/MontserratAlternates-Bold.otf");
         final String judul = getIntent().getStringExtra(EXTRA_JUDUL);
+
         tvJudul.setText(judul);
         tvJudul.setTypeface(typeface);
         Typeface typefacee = Typeface.createFromAsset(getAssets(), "fonts/Ubuntu-R.ttf");
         final String tanggalrilis = getIntent().getStringExtra(EXTRA_TANGGAL);
+
         tvDate.setText(tanggalrilis);
         tvDate.setTypeface(typefacee);
         final String deskripsi = getIntent().getStringExtra(EXTRA_DETAIL);
+
         tvDescription.setText(deskripsi);
         tvDescription.setTypeface(typefacee);
         final String subtitle = getIntent().getStringExtra(EXTRA_BAHASA);
+
         tvSubtitle.setText(subtitle);
         tvSubtitle.setTypeface(typefacee);
         final String popular = getIntent().getStringExtra(EXTRA_POPULAR);
+
         tvPopularity.setText(popular);
         tvPopularity.setTypeface(typefacee);
         final String voting = getIntent().getStringExtra(EXTRA_VOTEAVG);
@@ -105,13 +114,13 @@ public class DetailActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_red));
-                    /*String title = film.getJudulFilm();
-                    String date = film.getTanggal();
-                    String desc = film.getDeskripsi();
-                    String sub = film.getSubtitle();
-                    String popular = film.getPopular();
-                    String vote = film.getVote();
-                    String poster = film.getPoster();*/
+                    /*String title = filmItems.getJudulFilm();
+                    String date = filmItems.getTanggal();
+                    String desc = filmItems.getDeskripsi();
+                    String sub = filmItems.getSubtitle();
+                    String popular = filmItems.getPopular();
+                    String vote = filmItems.getVote();
+                    String poster = filmItems.getPoster();*/
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(DatabaseContract.FavouriteColumns.TITLE, judul);
                     contentValues.put(DatabaseContract.FavouriteColumns.DATE, tanggalrilis);
@@ -128,51 +137,51 @@ public class DetailActivity extends AppCompatActivity {
                     getContentResolver().delete(uri, judul, null);
                     toggleButton.setChecked(false);
                 }
-                }
-            });
-
-        if(uri !=null)
-
-            {
-                Cursor cursor = getContentResolver().query(uri, null, judul, null, null);
-                if (cursor != null) {
-                    if (cursor.moveToFirst()) {
-                        toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_red));
-
-                    }
-                }
             }
+        });
+
+        if (uri != null){
+            Cursor cursor = getContentResolver().query(uri, null, judul, null, null);
+
+            if (cursor != null) {
+                if (cursor.moveToFirst())
+                    filmItems = new FilmItems(cursor);
+                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_red));
+                cursor.close();
+
+            }
+        }
 
 
         Glide
                 .with(DetailActivity.this)
-                    .
-
-            load("http://image.tmdb.org/t/p/w185/"+poster)
                 .
 
-            into(imgPoster);
+                        load("http://image.tmdb.org/t/p/w185/" + poster)
+                .
 
-            SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+                        into(imgPoster);
+
+        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
         try
 
-            {
-                Date date = date_format.parse(tanggalrilis);
+        {
+            Date date = date_format.parse(tanggalrilis);
 
-                SimpleDateFormat new_date = new SimpleDateFormat("EEEE, dd/MM/yyyy");
-                String date_rilis = new_date.format(date);
-                tvDate.setText(date_rilis);
-            } catch(
-            ParseException e)
+            SimpleDateFormat new_date = new SimpleDateFormat("EEEE, dd/MM/yyyy");
+            String date_rilis = new_date.format(date);
+            tvDate.setText(date_rilis);
+        } catch (
+                ParseException e)
 
-            {
-                e.printStackTrace();
-            }
-
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-            setSupportActionBar(toolbar);
+        {
+            e.printStackTrace();
         }
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        setSupportActionBar(toolbar);
     }
+
+
+}

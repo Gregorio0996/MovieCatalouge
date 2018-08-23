@@ -1,5 +1,4 @@
-package com.example.gregorio.moviecatalouge;
-
+package com.example.gregorio.favouritelist;
 
 import android.database.Cursor;
 import android.os.Parcel;
@@ -7,14 +6,22 @@ import android.os.Parcelable;
 
 import org.json.JSONObject;
 
-import java.io.Serializable;
-
 import static android.provider.BaseColumns._ID;
-import static com.example.gregorio.moviecatalouge.DatabaseContract.getColumnInt;
-import static com.example.gregorio.moviecatalouge.DatabaseContract.getColumnString;
+import static com.example.gregorio.favouritelist.DatabaseContract.getColumnInt;
+import static com.example.gregorio.favouritelist.DatabaseContract.getColumnString;
 
-public class FilmItems implements Serializable, Parcelable {
+public class FilmItemss implements Parcelable {
+    public static final Creator<FilmItemss> CREATOR = new Creator<FilmItemss>() {
+        @Override
+        public FilmItemss createFromParcel(Parcel in) {
+            return new FilmItemss(in);
+        }
 
+        @Override
+        public FilmItemss[] newArray(int size) {
+            return new FilmItemss[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -47,23 +54,6 @@ public class FilmItems implements Serializable, Parcelable {
     }
 
     private int id;
-
-    public void setJudulFilm(String judulFilm) {
-        this.judulFilm = judulFilm;
-    }
-
-    public void setVote(String vote) {
-        this.vote = vote;
-    }
-
-    public void setPopular(String popular) {
-        this.popular = popular;
-    }
-
-    public void setPoster(String poster) {
-        Poster = poster;
-    }
-
     private String judulFilm;
     private String deskripsi;
     private String Tanggal;
@@ -97,33 +87,8 @@ public class FilmItems implements Serializable, Parcelable {
 
     private String Poster;
 
-    public FilmItems(JSONObject object) {
 
-        try {
-
-            String judulFilm = object.getString("title");
-            String deskripsi = object.getString("overview");
-            String Tanggal = object.getString("release_date");
-            String Poster = object.getString("poster_path");
-            String popular = object.getString("popularity");
-            String vote = object.getString("vote_average");
-            String subtitle = object.getString("original_language");
-
-
-            this.judulFilm = judulFilm;
-            this.deskripsi = deskripsi;
-            this.Tanggal = Tanggal;
-            this.Poster = Poster;
-            this.popular = popular;
-            this.vote = vote;
-            this.subtitle = subtitle;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public FilmItems(Cursor cursor){
+    public FilmItemss(Cursor cursor) {
         this.id = getColumnInt(cursor, _ID);
         this.judulFilm = getColumnString(cursor, DatabaseContract.FavouriteColumns.TITLE);
         this.deskripsi = getColumnString(cursor, DatabaseContract.FavouriteColumns.DESCRIPTION);
@@ -134,13 +99,13 @@ public class FilmItems implements Serializable, Parcelable {
         this.subtitle = getColumnString(cursor, DatabaseContract.FavouriteColumns.SUBTITLE);
     }
 
-    public FilmItems(Parcel in){
-        this.id  =in.readInt();
+    public FilmItemss(Parcel in) {
+        this.id = in.readInt();
         this.judulFilm = in.readString();
         this.Tanggal = in.readString();
         this.Poster = in.readString();
         this.popular = in.readString();
-        this.vote  = in.readString();
+        this.vote = in.readString();
         this.subtitle = in.readString();
     }
 
@@ -160,15 +125,5 @@ public class FilmItems implements Serializable, Parcelable {
         parcel.writeString(this.subtitle);
     }
 
-    public static final Creator<FilmItems> CREATOR = new Creator<FilmItems>() {
-        @Override
-        public FilmItems createFromParcel(Parcel parcel) {
-            return new FilmItems(parcel);
-        }
 
-        @Override
-        public FilmItems[] newArray(int i) {
-            return new FilmItems[i];
-        }
-    };
 }

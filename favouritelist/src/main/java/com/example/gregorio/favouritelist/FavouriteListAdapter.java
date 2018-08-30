@@ -2,6 +2,7 @@ package com.example.gregorio.favouritelist;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,11 +50,11 @@ public class FavouriteListAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         if (cursor != null) {
+            CardView cardView = (CardView) view.findViewById(R.id.card_view);
             TextView tvJudul = (TextView) view.findViewById(R.id.textFilm);
             TextView tvDesc = (TextView) view.findViewById(R.id.textDesc);
             TextView tvDate = (TextView) view.findViewById(R.id.textTanggal);
             ImageView imgPoster = (ImageView) view.findViewById(R.id.img_poster);
-
             tvJudul.setText(getColumnString(cursor, TITLE));
 
             final String tanggalrilis = getColumnString(cursor, DATE);

@@ -120,7 +120,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment.setArguments(bundle);
             } else if(id == R.id.nav_favorite ){
                 title = favourite;
-
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.example.gregorio.favouritelist");
+                if (launchIntent != null){
+                    startActivity(launchIntent);
+                }
             }
 
             if (fragment != null) {

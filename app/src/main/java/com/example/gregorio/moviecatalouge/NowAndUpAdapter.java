@@ -104,7 +104,7 @@ public class NowAndUpAdapter extends RecyclerView.Adapter<NowAndUpAdapter.ViewHo
         holder.btn_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, (context.getString(R.string.bagikan)) + "" + mfilmItem
+                Toast.makeText(context, (context.getString(R.string.bagikan)) + " " + mfilmItem
                         .get(position)
                         .getJudulFilm(), Toast.LENGTH_SHORT).show();
             }

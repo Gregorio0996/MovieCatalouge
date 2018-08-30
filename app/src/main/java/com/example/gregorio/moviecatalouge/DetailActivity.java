@@ -124,13 +124,13 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        if (uri != null){
+        if (uri != null) {
             Cursor cursor = getContentResolver().query(uri, null, judul, null, null);
 
             if (cursor != null) {
                 if (cursor.moveToFirst())
                     filmItems = new FilmItems(cursor);
-                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_red));
+                toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_red));
                 cursor.close();
 
             }
@@ -139,12 +139,8 @@ public class DetailActivity extends AppCompatActivity {
 
         Glide
                 .with(DetailActivity.this)
-                .
-
-                        load("http://image.tmdb.org/t/p/w185/" + poster)
-                .
-
-                        into(imgPoster);
+                .load("http://image.tmdb.org/t/p/w185/" + poster)
+                .into(imgPoster);
 
         SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
         try

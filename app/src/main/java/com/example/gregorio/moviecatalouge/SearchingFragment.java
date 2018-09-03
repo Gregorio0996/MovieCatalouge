@@ -40,7 +40,7 @@ public class SearchingFragment extends Fragment implements LoaderManager.LoaderC
 
 
     public SearchingFragment() {
-        // Required empty public constructor
+
     }
 
 

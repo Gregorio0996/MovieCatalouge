@@ -25,4 +25,7 @@
     <string name="sinopsidetail">Synopsis</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">FAVOURITE WIDGET</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text">Kosong</string>
 </resources>

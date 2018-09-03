@@ -32,7 +32,7 @@ public class FavouriteHelper {
         databaseHelper.close();
     }
 
-    public ArrayList<FilmItems> query() {
+    public ArrayList<FilmItems> query(){
         ArrayList<FilmItems> arrayList = new ArrayList<FilmItems>();
         Cursor cursor = database.query(TABLE_NAME
                 , null

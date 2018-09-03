@@ -18,7 +18,6 @@ import java.util.Date;
 
 public class FilmAdapter extends BaseAdapter {
 
-
     private ArrayList<FilmItems> mData = new ArrayList<>();
     private LayoutInflater mInflater;
     private Context context;
@@ -44,13 +43,11 @@ public class FilmAdapter extends BaseAdapter {
         return 1;
     }
 
-
     @Override
     public int getCount() {
         if (mData == null) return 0;
         return mData.size();
     }
-
 
     @Override
     public FilmItems getItem(int position) {

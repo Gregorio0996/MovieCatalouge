@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Binder;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -47,24 +46,15 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public void onCreate() {
-        list = mcontext.getContentResolver().query(CONTENT_URI,
-                null
-                ,null
-                ,null
-                ,null
-        );
 
-        while (list.moveToNext()){
-            FilmItems item = getItem(list.getPosition());
-            filmItems.add(item);
-        }
-        Log.d("Log widget","onCreate()");
+
     }
 
     @Override
     public void onDataSetChanged() {
-        Log.d("Log Widget", "onDataSetChanged()");
-
+        favouriteHelper = new FavouriteHelper(mcontext);
+        favouriteHelper.open();
+        filmItems = favouriteHelper.query();
     }
 
     @Override

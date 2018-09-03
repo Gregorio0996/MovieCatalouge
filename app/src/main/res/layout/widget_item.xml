@@ -11,6 +11,6 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/video_g_icon" />
+        app:srcCompat="@drawable/star_wars_logo" />
 
 </LinearLayout>

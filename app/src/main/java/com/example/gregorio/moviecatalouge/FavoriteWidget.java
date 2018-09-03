@@ -14,8 +14,8 @@ import android.widget.Toast;
  */
 public class FavoriteWidget extends AppWidgetProvider {
 
- public static final String TOAST_ACTION = "com.example.gregorio.moviecatalouge.TOAST_ACTION";
- public static final String EXTRA_ITEM = "com.example.gregorio.moviecatalouge.EXTRA_ITEM";
+ public static final String TOAST_ACTION = "com.example.gregorio.TOAST_ACTION";
+ public static final String EXTRA_ITEM = "com.example.gregorio.EXTRA_ITEM";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -24,7 +24,6 @@ public class FavoriteWidget extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favorite_widget);
         views.setRemoteAdapter(R.id.stack_view, intent);
         views.setEmptyView(R.id.stack_view, R.id.empty_view);

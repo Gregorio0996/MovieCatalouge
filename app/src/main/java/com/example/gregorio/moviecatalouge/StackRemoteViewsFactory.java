@@ -27,7 +27,6 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     private Context mcontext;
     private int mAppWidgetId;
     private AppWidgetTarget appWidgetTarget;
-
     private Cursor list;
 
     FavouriteHelper favouriteHelper;
@@ -76,10 +75,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         extras.putInt(FavoriteWidget.EXTRA_ITEM, i);
         Intent fillIntent = new Intent();
         fillIntent.putExtras(extras);
-
         rv.setImageViewBitmap(R.id.imageView, bitmap);
-
-
         return rv;
     }
 

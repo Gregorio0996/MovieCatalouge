@@ -37,17 +37,9 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
     }
 
-    public FilmItems getItem(int position){
-        if(!list.moveToPosition(position)){
-            throw new IllegalStateException("Position Invalid");
-        }
-        return new FilmItems(list);
-    }
 
     @Override
     public void onCreate() {
-
-
     }
 
     @Override

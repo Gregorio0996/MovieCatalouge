@@ -14,8 +14,8 @@ import android.widget.Toast;
  */
 public class FavoriteWidget extends AppWidgetProvider {
 
- public static final String TOAST_ACTION = "com.example.gregorio.TOAST_ACTION";
- public static final String EXTRA_ITEM = "com.example.gregorio.EXTRA_ITEM";
+ public static final String TOAST_ACTION = "com.example.gregorio.moviecatalouge.TOAST_ACTION";
+ public static final String EXTRA_ITEM = "com.example.gregorio.moviecatalouge.EXTRA_ITEM";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.AppWidgetTarget;
@@ -63,7 +64,9 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         ResItems items = getItem(i);
         RemoteViews rv = new RemoteViews(mcontext.getPackageName(), R.layout.widget_item);
         Bitmap bitmap = null;
+        String judul = "";
         try {
+       
             bitmap = Glide.with(mcontext)
                     .load("http://image.tmdb.org/t/p/w185" + items.getPoster())
                     .asBitmap()
@@ -77,6 +80,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         Intent fillIntent = new Intent();
         fillIntent.putExtras(extras);
         rv.setImageViewBitmap(R.id.imageView, bitmap);
+
         return rv;
     }
 

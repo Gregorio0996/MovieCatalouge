@@ -23,6 +23,7 @@
     <string name="Popularity">Popularity</string>
     <string name="Voting">Voting</string>
     <string name="sinopsidetail">Synopsis</string>
+    <string name="setting">Setting</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appwidget_text">FAVOURITE WIDGET</string>

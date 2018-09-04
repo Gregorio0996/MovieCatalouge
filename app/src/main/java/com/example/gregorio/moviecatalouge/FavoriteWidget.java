@@ -3,6 +3,7 @@ package com.example.gregorio.moviecatalouge;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,12 +17,16 @@ public class FavoriteWidget extends AppWidgetProvider {
 
  public static final String TOAST_ACTION = "com.example.gregorio.TOAST_ACTION";
  public static final String EXTRA_ITEM = "com.example.gregorio.EXTRA_ITEM";
+ public static final String UPDATE_WIDGET = "com.example.gregorio.UPDATE_WIDGET";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         Intent intent = new Intent(context, StackWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        intent.setAction(UPDATE_WIDGET);
+        context.sendBroadcast(intent);
+
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favorite_widget);
@@ -65,6 +70,7 @@ public class FavoriteWidget extends AppWidgetProvider {
             int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
             Toast.makeText(context, "Touched view " + viewIndex, Toast.LENGTH_SHORT).show();
         }
+
         super.onReceive(context, intent);
     }
 

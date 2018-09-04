@@ -22,13 +22,9 @@ import java.util.concurrent.ExecutionException;
 import static com.example.gregorio.moviecatalouge.DatabaseContract.CONTENT_URI;
 
 public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-    private List<Bitmap> mWidgetitems = new ArrayList<>();
-    private ArrayList<FilmItems> filmItems = new ArrayList<>();
     private Context mcontext;
     private int mAppWidgetId;
-    private AppWidgetTarget appWidgetTarget;
     private Cursor list;
-
     FavouriteHelper favouriteHelper;
 
     public StackRemoteViewsFactory(Context context, Intent intent) {
@@ -39,13 +35,17 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public void onCreate() {
+        list = mcontext.getContentResolver().query(
+                CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+        );
     }
 
     @Override
     public void onDataSetChanged() {
-        favouriteHelper = new FavouriteHelper(mcontext);
-        favouriteHelper.open();
-        filmItems = favouriteHelper.query();
     }
 
     @Override
@@ -55,16 +55,17 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public int getCount() {
-        return mWidgetitems.size();
+        return list.getCount();
     }
 
     @Override
     public RemoteViews getViewAt(int i) {
+        ResItems items = getItem(i);
         RemoteViews rv = new RemoteViews(mcontext.getPackageName(), R.layout.widget_item);
         Bitmap bitmap = null;
         try {
             bitmap = Glide.with(mcontext)
-                    .load("http://image.tmdb.org/t/p/w185" + favouriteHelper.query().get(i).getPoster())
+                    .load("http://image.tmdb.org/t/p/w185" + items.getPoster())
                     .asBitmap()
                     .error(new ColorDrawable(mcontext.getResources().getColor(R.color.colorPrimary)))
                     .into(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL, com.bumptech.glide.request.target.Target.SIZE_ORIGINAL).get();
@@ -97,5 +98,13 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     @Override
     public boolean hasStableIds() {
         return false;
+    }
+
+
+    private ResItems getItem(int position){
+        if(!list.moveToPosition(position)){
+            throw new IllegalStateException("position invalid");
+        }
+        return new ResItems(list);
     }
 }

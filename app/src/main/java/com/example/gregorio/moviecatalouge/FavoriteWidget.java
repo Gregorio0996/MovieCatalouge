@@ -69,6 +69,11 @@ public class FavoriteWidget extends AppWidgetProvider {
             int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
             int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
             Toast.makeText(context, "Touched view " + viewIndex, Toast.LENGTH_SHORT).show();
+        }else if(intent.getAction().equals(UPDATE_WIDGET)){
+            int[] widgetId = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, FavoriteWidget.class));
+            for (int id : widgetId){
+                AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(id, R.id.imageView);
+            }
         }
 
         super.onReceive(context, intent);

@@ -66,7 +66,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         Bitmap bitmap = null;
         String judul = "";
         try {
-       
+
             bitmap = Glide.with(mcontext)
                     .load("http://image.tmdb.org/t/p/w185" + items.getPoster())
                     .asBitmap()

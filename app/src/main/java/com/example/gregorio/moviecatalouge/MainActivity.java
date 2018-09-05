@@ -1,7 +1,13 @@
 package com.example.gregorio.moviecatalouge;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,9 +19,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +34,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.activity_main)
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
+    public static final String LANG = "en-US";
+    public static final String API_KEY = BuildConfig.MOVIE_DB_API_KEY;
+    public static final int NOTIFICATION_ID = 123;
+
+    AlarmManager alarmManager;
+    PendingIntent notifyPendingIntent;
+    private NotificationManager notificationManager;
+
+    private SchedullerTask schedullerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +60,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .beginTransaction()
                     .replace(R.id.main_content, currentFragment)
                     .commit();
+        }
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        Boolean dailyPref = sharedPreferences.getBoolean(SettingActivity.KEY_DAILY_SWITCH, false);
+
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        Intent notifyIntent = new Intent(this, AlarmReceiver.class);
+        notifyPendingIntent = PendingIntent.getBroadcast(
+                this,
+                NOTIFICATION_ID,
+                notifyIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        long trigerTime;
+        trigerTime = SystemClock.elapsedRealtime();
+        Log.d("Triger", "triger time: " + trigerTime);
+        long repeatInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+
+        if (dailyPref) {
+            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, trigerTime, repeatInterval, notifyPendingIntent);
+        } else {
+            alarmManager.cancel(notifyPendingIntent);
+            notificationManager.cancelAll();
+            Toast.makeText(this, "daily canceled", Toast.LENGTH_SHORT).show();
+        }
+
+        schedullerTask = new SchedullerTask(this);
+
+        if (dailyPref) {
+            schedullerTask.createPeriodicTask();
+        } else {
+            schedullerTask.cancelPeriodicTask();
         }
 
     }
@@ -95,47 +149,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
                 startActivity(intent);
                 return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-
         }
 
-        @SuppressWarnings("StatementKosong")
-        @Override
-        public boolean onNavigationItemSelected (MenuItem item){
-            int id = item.getItemId();
-            Bundle bundle = new Bundle();
-            Fragment fragment = null;
-            String home = getString(R.string.home);
-            String title = "";
-            String search = getString(R.string.cari);
-            String favourite = getString(R.string.favorit);
-            if (id == R.id.nav_home) {
-                title = home;
-                fragment = new HomeFragment();
-            } else if (id == R.id.nav_search) {
-                title = search;
-                fragment = new SearchingFragment();
-                fragment.setArguments(bundle);
-            } else if(id == R.id.nav_favorite ){
-                title = favourite;
-                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.example.gregorio.favouritelist");
-                if (launchIntent != null){
-                    startActivity(launchIntent);
-                }
-            }
-
-            if (fragment != null) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_content, fragment)
-                        .commit();
-            }
-            getSupportActionBar().setTitle(title);
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_main);
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        }
+        return super.onOptionsItemSelected(item);
 
     }
+
+    @SuppressWarnings("StatementKosong")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        Bundle bundle = new Bundle();
+        Fragment fragment = null;
+        String home = getString(R.string.home);
+        String title = "";
+        String search = getString(R.string.cari);
+        String favourite = getString(R.string.favorit);
+        String settings = getString(R.string.setting);
+        if (id == R.id.nav_home) {
+            title = home;
+            fragment = new HomeFragment();
+        } else if (id == R.id.nav_search) {
+            title = search;
+            fragment = new SearchingFragment();
+            fragment.setArguments(bundle);
+        } else if (id == R.id.nav_favorite) {
+            title = favourite;
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.example.gregorio.favouritelist");
+            if (launchIntent != null) {
+                startActivity(launchIntent);
+            }
+        } else if (id == R.id.nav_setting) {
+            title = settings;
+            Intent setIntent = new Intent(MainActivity.this, SettingActivity.class);
+            startActivity(setIntent);
+        }
+
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_content, fragment)
+                    .commit();
+        }
+        getSupportActionBar().setTitle(title);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.activity_main);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+}

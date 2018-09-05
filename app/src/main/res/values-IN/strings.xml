@@ -25,6 +25,9 @@
     <string name="sinopsidetail">Sinopsis</string>
     <string name="setting">Pengaturan</string>
 
+    <string name="titleReminder">Kemana saja kamu?</string>
+    <string name="contentReminder">Cek berita terbaru kita mengenai film</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

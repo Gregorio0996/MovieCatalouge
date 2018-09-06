@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .commit();
         }
 
-        android.support.v7.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        SharedPreferences sharedPreferences = android.support.v7.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Boolean dailyPref = sharedPreferences.getBoolean(SettingActivity.KEY_DAILY_SWITCH, false);
 

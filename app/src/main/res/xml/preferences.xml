@@ -6,14 +6,18 @@
     <android.preference.SwitchPreference
 =======
     <SwitchPreference
+<<<<<<< HEAD
 >>>>>>> notif and widget done, but sometimes forceclosed
         android:defaultValue="true"
+=======
+        android:defaultValue="false"
+>>>>>>> notif and widget success, still in testing
         android:summary="@string/summary_dailyremind"
         android:title="@string/title_dailyremind"
         app:key="daily_switch" />
 
    <SwitchPreference
-       android:defaultValue="true"
+       android:defaultValue="false"
        android:summary="@string/summary_upcomeremind"
        android:title="@string/title_upcomeremind"
        app:key="upcoming_switch"

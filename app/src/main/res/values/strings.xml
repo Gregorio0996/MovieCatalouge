@@ -28,8 +28,11 @@
     <string name="titleReminder">Where have you been?</string>
     <string name="contentReminder">Check our update news about movie</string>
 
-    <string name="summary_dailyremind">Pengingat</string>
-    <string name="title_dailyremind">Notif Pengingat</string>
+    <string name="summary_dailyremind">Set your daily Reminder</string>
+    <string name="title_dailyremind">Daily Reminder Notif</string>
+
+    <string name="summary_upcomeremind">Set your upcoming Reminder</string>
+    <string name="title_upcomeremind">Upcoming Reminder Notif</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appwidget_text">FAVOURITE WIDGET</string>

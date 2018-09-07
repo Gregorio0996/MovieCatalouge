@@ -2,16 +2,21 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<<<<<<< HEAD
     <android.preference.SwitchPreference
+=======
+    <SwitchPreference
+>>>>>>> notif and widget done, but sometimes forceclosed
         android:defaultValue="true"
         android:summary="@string/summary_dailyremind"
         android:title="@string/title_dailyremind"
         app:key="daily_switch" />
 
-    <Preference
-        android:title="Change Language"
-        android:key="change_language"
-        android:summary="Change this app language"
-        />
+   <SwitchPreference
+       android:defaultValue="true"
+       android:summary="@string/summary_upcomeremind"
+       android:title="@string/title_upcomeremind"
+       app:key="upcoming_switch"
+       />
 
 </PreferenceScreen>

@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Boolean dailyPref = sharedPreferences.getBoolean(SettingActivity.KEY_DAILY_SWITCH, false);
-
+        Boolean upcomePref = sharedPreferences.getBoolean(SettingActivity.KEY_UPCOMING_SWITCH, false);
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -91,7 +91,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "daily canceled", Toast.LENGTH_SHORT).show();
         }
 
+        if (upcomePref) {
+            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, trigerTime, repeatInterval, notifyPendingIntent);
+        } else {
+            alarmManager.cancel(notifyPendingIntent);
+            notificationManager.cancelAll();
+            Toast.makeText(this, "upcoming canceled", Toast.LENGTH_SHORT).show();
+        }
+
         schedullerTask = new SchedullerTask(this);
+
+        if (upcomePref) {
+            schedullerTask.createPeriodicTask();
+        } else {
+            schedullerTask.cancelPeriodicTask();
+        }
 
         if (dailyPref) {
             schedullerTask.createPeriodicTask();

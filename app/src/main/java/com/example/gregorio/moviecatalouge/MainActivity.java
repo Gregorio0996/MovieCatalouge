@@ -63,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.gregorio.moviecatalouge", MODE_PRIVATE);
 
-        Boolean dailyPref = sharedPreferences.getBoolean(SettingActivity.KEY_DAILY_SWITCH, false);
-        Boolean upcomePref = sharedPreferences.getBoolean(SettingActivity.KEY_UPCOMING_SWITCH, false);
+        Boolean dailyPref = sharedPreferences.getBoolean(SettingActivity.KEY_DAILY_SWITCH, true);
+        Boolean upcomePref = sharedPreferences.getBoolean(SettingActivity.KEY_UPCOMING_SWITCH, true);
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -102,18 +102,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         schedullerTask = new SchedullerTask(this);
 
         if (upcomePref) {
+            SharedPreferences.Editor editor = getSharedPreferences("com.example.gregorio.moviecatalouge", MODE_PRIVATE).edit();
             schedullerTask.createPeriodicTask();
+            editor.putBoolean(SettingActivity.KEY_UPCOMING_SWITCH, true);
+            editor.commit();
         } else {
+            SharedPreferences.Editor editor = getSharedPreferences("com.example.gregorio.moviecatalouge", MODE_PRIVATE).edit();
             schedullerTask.cancelPeriodicTask();
+            editor.putBoolean(SettingActivity.KEY_UPCOMING_SWITCH, false);
+            editor.commit();
         }
 
         if (dailyPref) {
+            SharedPreferences.Editor editor = getSharedPreferences("com.example.gregorio.moviecatalouge", MODE_PRIVATE).edit();
             schedullerTask.createPeriodicTask();
+            editor.putBoolean(SettingActivity.KEY_DAILY_SWITCH, true);
+            editor.commit();
         } else {
             schedullerTask.cancelPeriodicTask();
+            SharedPreferences.Editor editor = getSharedPreferences("com.example.gregorio.moviecatalouge", MODE_PRIVATE).edit();
+            editor.putBoolean(SettingActivity.KEY_DAILY_SWITCH, false);
+            editor.commit();
         }
 
     }
+
+
 
     @Override
     protected void onResume() {

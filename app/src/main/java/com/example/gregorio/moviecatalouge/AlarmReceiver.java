@@ -28,7 +28,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_local_movies_black)
-                .setContentTitle("Where have you been?")
+                .setContentTitle("Movie Catalouge")
                 .setContentText("Check our news update about movie")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)

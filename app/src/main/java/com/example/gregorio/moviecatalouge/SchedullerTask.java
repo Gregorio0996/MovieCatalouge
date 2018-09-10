@@ -17,6 +17,7 @@ public class SchedullerTask {
         Task periodicTask = new PeriodicTask.Builder()
                 .setService(SchedullerService.class)
                 .setPeriod(60)
+                .setFlex(10)
                 .setTag(SchedullerService.TAG_TASK)
                 .setPersisted(true)
                 .build();

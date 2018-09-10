@@ -160,15 +160,15 @@ public class FilmItems implements Serializable, Parcelable {
         parcel.writeString(this.subtitle);
     }
 
-    public static final Creator<FilmItems> CREATOR = new Creator<FilmItems>() {
+    public static final Parcelable.Creator<FilmItems> CREATOR = new Parcelable.Creator<FilmItems>() {
         @Override
         public FilmItems createFromParcel(Parcel parcel) {
             return new FilmItems(parcel);
         }
 
         @Override
-        public FilmItems[] newArray(int i) {
-            return new FilmItems[i];
+        public FilmItems[] newArray(int size) {
+            return new FilmItems[size];
         }
     };
 }

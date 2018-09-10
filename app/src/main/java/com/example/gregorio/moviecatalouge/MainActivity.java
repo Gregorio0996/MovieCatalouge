@@ -33,15 +33,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     @BindView(R.id.activity_main)
     DrawerLayout drawer;
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
+
     ActionBarDrawerToggle toggle;
     public static final String LANG = "en-US";
     public static final String API_KEY = BuildConfig.MOVIE_DB_API_KEY;
     public static final int NOTIFICATION_ID = 123;
+    public static final int UPCOME_ID = 122;
 
     AlarmManager alarmManager;
-    PendingIntent notifyPendingIntent;
+    PendingIntent notifyPendingIntent, upcomePendingIntent;
     private NotificationManager notificationManager;
-
     private SchedullerTask schedullerTask;
 
     @Override
@@ -51,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         navigationView.setNavigationItemSelectedListener(this);
         if (savedInstanceState == null) {
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .commit();
         }
 
+
+
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.gregorio.moviecatalouge", MODE_PRIVATE);
 
@@ -69,8 +73,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Boolean upcomePref = sharedPreferences.getBoolean(SettingActivity.KEY_UPCOMING_SWITCH, true);
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
+        Intent upcomeIntent = new Intent(this, SchedullerService.class);
         Intent notifyIntent = new Intent(this, AlarmReceiver.class);
+
+        upcomePendingIntent = PendingIntent.getBroadcast(
+                this,
+                UPCOME_ID,
+                upcomeIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+
         notifyPendingIntent = PendingIntent.getBroadcast(
                 this,
                 NOTIFICATION_ID,
@@ -83,20 +96,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d("Triger", "triger time: " + trigerTime);
         long repeatInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 
-        if (dailyPref) {
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, trigerTime, repeatInterval, notifyPendingIntent);
+
+
+       if (dailyPref) {
+            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, trigerTime, repeatInterval, upcomePendingIntent );
+            Log.d("Daily", "daily active ");
         } else {
-            alarmManager.cancel(notifyPendingIntent);
+            alarmManager.cancel(upcomePendingIntent);
             notificationManager.cancelAll();
             Toast.makeText(this, "daily canceled", Toast.LENGTH_SHORT).show();
+            Log.d("Daily", "daily inactive ");
         }
 
         if (upcomePref) {
             alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, trigerTime, repeatInterval, notifyPendingIntent);
+            Log.d("Upcome", "upcome active ");
         } else {
             alarmManager.cancel(notifyPendingIntent);
             notificationManager.cancelAll();
             Toast.makeText(this, "upcoming canceled", Toast.LENGTH_SHORT).show();
+            Log.d("Upcome", "upcome inactive ");
         }
 
         schedullerTask = new SchedullerTask(this);
@@ -124,10 +143,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             editor.putBoolean(SettingActivity.KEY_DAILY_SWITCH, false);
             editor.commit();
         }
-
     }
 
-
+   /* private void showNotification(){
+        startService(new Intent(this, SchedullerService.class));
+    }*/
 
     @Override
     protected void onResume() {

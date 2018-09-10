@@ -6,12 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
 import com.google.gson.Gson;
+
+import java.util.List;
+import java.util.Random;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -23,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.gregorio.moviecatalouge.MainActivity.API_KEY;
 import static com.example.gregorio.moviecatalouge.MainActivity.LANG;
+import static com.example.gregorio.moviecatalouge.MainActivity.UPCOME_ID;
 
 public class SchedullerService extends GcmTaskService {
     public static final String TAG = "Upcome";
@@ -64,9 +70,13 @@ public class SchedullerService extends GcmTaskService {
         call.enqueue(new Callback<AllItems>(){
             @Override
             public void onResponse(Call<AllItems> call, retrofit2.Response<AllItems> response) {
-              int size = response.body().getResults().size();
-              FilmItems getUpComing = response.body().getResults().get(size - 1);
-              showNotification(getApplicationContext(), getUpComing);
+                List<FilmItems> items = response.body().getResults();
+                int index = new Random().nextInt(items.size());
+
+                FilmItems item = items.get(index);
+                String title = items.get(index).getJudulFilm();
+                int notifId = UPCOME_ID;
+                showNotification(getApplicationContext(), item, notifId, title);
             }
 
             @Override
@@ -76,28 +86,29 @@ public class SchedullerService extends GcmTaskService {
         });
     }
 
-    private void showNotification(Context context, FilmItems items){
+    private void showNotification(Context context, FilmItems item, int notifId, String title){
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         Intent contentIntent = new Intent(context, DetailActivity.class);
-        //contentIntent.putExtra(DetailActivity.EXTRA_DETAIL, items);
-        Uri uri = Uri.parse(DatabaseContract.CONTENT_URI+"/"+items.getJudulFilm());
+        contentIntent.putExtra(DetailActivity.EXTRA_DETAIL, (Parcelable) item);
+        Uri uri = Uri.parse(DatabaseContract.CONTENT_URI+"/"+item.getJudulFilm());
         contentIntent.setData(uri);
         PendingIntent contentPendingIntent = PendingIntent.getActivity(
                 context,
-                200,
+                notifId,
                 contentIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_local_movies_black)
                 .setContentTitle("New movie is coming!")
-                .setContentText(items.getJudulFilm()+" in this "+ items.getTanggal())
+                .setContentText(title+" in this "+ item.getTanggal())
                 .setContentIntent(contentPendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 
-        notificationManager.notify(200, builder.build());
+        notificationManager.notify(notifId, builder.build());
+        Log.d("Upcome", "notif upcome masuk");
     }
 
 }
